@@ -3,6 +3,7 @@
 @Library('jenkinslib') _
 
 def tools = new org.devops.tools()
+parameters { string(name: 'test', defaultValue: 'staging', description: '') }
 
 String workspace = "/opt/jenkins/workspace"
 
