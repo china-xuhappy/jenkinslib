@@ -25,13 +25,13 @@ pipeline {
     
     stages {
         stage('Hello') {
-            when { environment name: 'test', value: 'abcd' }
+//            when { environment name: 'test', value: 'abcd' }
             steps {
                 echo 'Hello World'
                 script {//填写运行代码
                     tools.PrintMes("xu happy", "red")
-                    emailext body: '1455870304@qq.com', subject: '1455870304@qq.com', to: '1455870304@qq.com'
-                    input id: 'Test', message: '我们是否要继续？', ok: '是，继续吧！', parameters: [choice(choices: ['a', 'b'], description: '', name: 'test1')], submitter: 'lizeyang,admin'
+//                    emailext body: '1455870304@qq.com', subject: '1455870304@qq.com', to: '1455870304@qq.com'
+//                    input id: 'Test', message: '我们是否要继续？', ok: '是，继续吧！', parameters: [choice(choices: ['a', 'b'], description: '', name: 'test1')], submitter: 'lizeyang,admin'
                 }
             }
         }
@@ -39,33 +39,17 @@ pipeline {
         stage('GetCode'){ //阶段名称
             steps{
                  script{ //填写运行代码
-                        println('获取代码')
                         tools.PrintMes("获取代码",'green')
                         println("${test}")
                 }
             }
         }
-        stage('Parallel Stage') {
-            when {
-                branch 'master'
-            }
-            failFast true
-            parallel {
-                stage('Branch A') {
-                    agent {
-                        label "for-branch-a"
-                    }
-                    steps {
-                        echo "On Branch A"
-                    }
-                }
-                stage('Branch B') {
-                    agent {
-                        label "for-branch-b"
-                    }
-                    steps {
-                        echo "On Branch B"
-                    }
+        stage("mavenBuild"){
+            steps{
+                script{
+                    tools.PrintMes("开始Build代码",'green')
+                    def mvnName = tool 'maven3'
+                    sh "${mvnName}/bin/mvn clean package"
                 }
             }
         }
