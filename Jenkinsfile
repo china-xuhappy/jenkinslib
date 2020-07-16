@@ -30,6 +30,7 @@ pipeline {
                 echo 'Hello World'
                 script {//填写运行代码
                     tools.PrintMes("xu happy", "red")
+                    emailext body: '1455870304@qq.com', subject: '1455870304@qq.com', to: '1455870304@qq.com'
                     input id: 'Test', message: '我们是否要继续？', ok: '是，继续吧！', parameters: [choice(choices: ['a', 'b'], description: '', name: 'test1')], submitter: 'lizeyang,admin'
                 }
             }
