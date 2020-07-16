@@ -49,6 +49,7 @@ pipeline {
                 script{
                     tools.PrintMes("开始Build代码",'green')
                     def mvnName = tool 'maven3'
+                    sh "source /etc/profile"
                     sh "${mvnName}/bin/mvn clean package"
                 }
             }
