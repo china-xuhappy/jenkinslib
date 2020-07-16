@@ -25,6 +25,7 @@ pipeline {
     
     stages {
         stage('Hello') {
+            when { environment name: 'test', value: 'abcd' }
             steps {
                 echo 'Hello World'
                 script {//填写运行代码
