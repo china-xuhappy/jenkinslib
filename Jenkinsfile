@@ -29,5 +29,41 @@ pipeline {
                 }
             }
         }
+         //下载代码
+        stage('GetCode'){ //阶段名称
+            steps{
+                 script{ //填写运行代码
+                        println('获取代码')
+                        tools.PrintMes("获取代码",'green')
+                        println("${test}")
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            script{
+                println("always")
+            }
+        }
+
+        success {
+            script{
+                currentBuild.description = "\n 构建成功!" 
+            }
+        }
+
+        failure {
+            script{
+                currentBuild.description = "\n 构建失败!" 
+            }
+        }
+
+        aborted {
+            script{
+                currentBuild.description = "\n 构建取消!" 
+            }
+        }
     }
 }
